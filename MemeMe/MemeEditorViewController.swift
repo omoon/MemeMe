@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var toolbar: UIToolbar!
@@ -134,7 +134,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func keyboardWillShow(notification: NSNotification) {
         if textBottom.editing {
-            view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y = getKeyboardHeight(notification) * -1
         }
     }
     
@@ -145,17 +145,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: IBAcions
-    @IBAction func shootAnImage(sender: AnyObject) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .Camera
-        self.presentViewController(imagePicker, animated: true, completion: nil)
+    @IBAction func pickAnImageFromCamera(sender: AnyObject) {
+        pickAnImage(.Camera)
     }
     
-    @IBAction func pickAnImage(sender: AnyObject) {
+    @IBAction func pickAnImageFromLibrary(sender: AnyObject) {
+        pickAnImage(.PhotoLibrary)
+    }
+    
+    func pickAnImage(sourceType: UIImagePickerControllerSourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.sourceType = sourceType
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
@@ -163,6 +164,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // hide keyboard when editing
         view.endEditing(true)
         
+        shareButton.enabled = false
         imagePickerView.image = nil
         resetText()
         textFieldDelegate.resetStatus()
@@ -174,7 +176,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         nextController.completionWithItemsHandler = {
             (s: String?, ok: Bool, items: [AnyObject]?, err:NSError?) -> Void in
-            self.save(memedImage)
+            if ok {
+                self.save(memedImage)
+            }
         }
         self.presentViewController(nextController, animated: true, completion: nil)
     }

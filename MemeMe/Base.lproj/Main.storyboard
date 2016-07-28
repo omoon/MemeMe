@@ -6,10 +6,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Meme Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MemeEditorViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -39,13 +39,13 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="dBA-xI-hui"/>
                                     <barButtonItem systemItem="camera" id="Eoi-1Y-her">
                                         <connections>
-                                            <action selector="shootAnImage:" destination="BYZ-38-t0r" id="gPF-C2-eWL"/>
+                                            <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="AkH-i0-gr4"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="f0e-Oh-yOg"/>
                                     <barButtonItem title="Album" id="KhC-Ly-sdR">
                                         <connections>
-                                            <action selector="pickAnImage:" destination="BYZ-38-t0r" id="2mP-ex-oeI"/>
+                                            <action selector="pickAnImageFromLibrary:" destination="BYZ-38-t0r" id="PWO-uf-qwT"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="gA0-oi-Jbw"/>
