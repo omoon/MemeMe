@@ -46,7 +46,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         }
         
         resetText()
-        setTextFieldAppearances()
+        setTextFieldAppearances(textTop)
+        setTextFieldAppearances(textBottom)
         
         textTop.delegate = textFieldDelegate
         textBottom.delegate = textFieldDelegate
@@ -54,20 +55,15 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     // MARK: TEXT STUFFS
-    func setTextFieldAppearances() {
-        
+    func setTextFieldAppearances(textField: UITextField) {
         let memeTextAttributes = [
             NSForegroundColorAttributeName: UIColor.whiteColor(),
             NSStrokeColorAttributeName: UIColor.blackColor(),
             NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
             NSStrokeWidthAttributeName: -8.0
         ]
-        textTop.defaultTextAttributes = memeTextAttributes
-        textBottom.defaultTextAttributes = memeTextAttributes
-        
-        textTop.textAlignment = .Center
-        textBottom.textAlignment = .Center
-        
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .Center
     }
     
     func resetText() {
@@ -172,15 +168,15 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBAction func share() {
         let memedImage = generateMemedImage()
-        let nextController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         
-        nextController.completionWithItemsHandler = {
-            (s: String?, ok: Bool, items: [AnyObject]?, err:NSError?) -> Void in
+        activityController.completionWithItemsHandler = {
+            (string: String?, ok: Bool, items: [AnyObject]?, error: NSError?) -> Void in
             if ok {
                 self.save(memedImage)
             }
         }
-        self.presentViewController(nextController, animated: true, completion: nil)
+        self.presentViewController(activityController, animated: true, completion: nil)
     }
     
 }

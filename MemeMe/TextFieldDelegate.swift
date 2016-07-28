@@ -17,7 +17,7 @@ class TextFieldDelegate: NSObject, UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
         tag = textField.tag
         if isChanged[tag] == false {
-            textField.text = ""
+            textField.clearsOnBeginEditing = true
         }
         isChanged[tag] = true
     }
